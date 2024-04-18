@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<!-- Load d3.js -->
+<script src="http://d3js.org/d3.v4.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+
+<!-- Create an element where the map will take place -->
+<svg id="my_dataviz" width="700" height="600"></svg>
+
+<script>
+
+    const tooltip = d3.select("body")
+    .append("div")
+    .style("position", "absolute")
+    .style("padding", "10px")
+    .style("background", "white")
+    .style("color", "black")
+    .style("border-radius", "5px")
+    .style("display", "none")
+    .style("border", "1px solid white")
+    .style("opacity", 0.75)
+
+
+    // The svg
+    var svg = d3.select("svg"),
+      width = +svg.attr("width"),
+      height = +svg.attr("height");
+    
+    // Map and projection
+    var path = d3.geoPath();
+    var projection = d3.geoMercator()
+      .scale(70)
+      .center([0,20])
+      .translate([width / 2, height / 2]);
+    
+    // Data and color scale
+    var data = d3.map();
+    var countryMap = d3.map();
+    var colorScale = d3.scaleThreshold()
+      .domain([50, 480, 923, 2875, 2875, 4000, 6227])
+      .range(d3.schemeReds[7]);
+    
+    // Load external data and boot
+    d3.queue()
+      .defer(d3.json, "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson")
+      .defer(d3.csv, "https://raw.githubusercontent.com/afivuvor/cloudProject/main/co2_production_data.csv", function(d) { data.set(d.ISO3, +d.Total_CO2); countryMap.set(d.ISO3, d.Country);})
+      .await(ready);
+  
+    
+    function ready(error, topo) {
+
+      let mouseOver = function(d) {
+        var name = d["properties"]["name"];
+        var co2 = d["total"];
+        var percentage = ((co2/289993.26)*100).toFixed(2) +"%"
+        
+        if (co2 == 0) {
+          co2 = "Data Unavailable"
+        }
+
+        d3.selectAll(".Country")
+          .transition()
+          .duration(200)
+          .style("opacity", .5)
+        d3.select(this)
+          .transition()
+          .duration(200)
+          .style("opacity", 1)
+          .style("stroke", "black")
+
+        tooltip
+        .style("display", "block")
+        .style("left", (d3.event.pageX) + "px")
+        .style("top", (d3.event.pageY) + "px")
+        .html("Country: " + name + "<br>CO2(Million Tonnes): " + co2 + "<br>Contribution: " + percentage)
+      }
+    
+      let mouseLeave = function(d) {
+        d3.selectAll(".Country")
+          .transition()
+          .duration(200)
+          .style("opacity", .8)
+        d3.select(this)
+          .transition()
+          .duration(200)
+          .style("stroke", "transparent")
+        tooltip
+          .style("display", "none")
+      }
+    
+      // Draw the map
+      svg.append("g")
+        .selectAll("path")
+        .data(topo.features)
+        .enter()
+        .append("path")
+          // draw each country
+          .attr("d", d3.geoPath()
+            .projection(projection)
+          )
+          // set the color of each country
+          .attr("fill", function (d) {
+            d.total = data.get(d.id) || 0;
+            return colorScale(d.total);
+          })
+          .style("stroke", "transparent")
+          .attr("class", function(d){ return "Country" } )
+          .style("opacity", .8)
+          .on("mouseover", mouseOver )
+          .on("mouseleave", mouseLeave )
+        }
+    
+</script>
