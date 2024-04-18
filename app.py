@@ -48,7 +48,7 @@ def login():
             session['name'] = user['name']
             return render_template('index.html')
         else:
-             return redirect(url_for('sign_in'))
+            return redirect(url_for('sign_in'))
 
 @app.route('/shop')
 def shop():
