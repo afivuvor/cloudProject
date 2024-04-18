@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html class="system">
+  <head>
+    <title>ShelfMate</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+    <link rel="stylesheet" href="https://assets.thestorygraph.com/assets/tailwind-37800a9e9dc1632cd953a921a6c57aab42716c2c2ca45bd5cc659f3053c255a1.css" data-turbo-track="reload" />
+    <link rel="stylesheet" href="https://assets.thestorygraph.com/assets/application-2928e1d73baa83499b5f821e75a33e989ac0d43cbbcf1aec42a204790a3b49e9.css" data-turbo-track="reload" />
+    <link rel="stylesheet" href="https://assets.thestorygraph.com/assets/actiontext-8e9b65b1a5db61c3037c4395a5a31fa08739153d9da8977fb30ff0ef6b3af50a.css" media="all" />
+    <link rel="stylesheet" href="https://assets.thestorygraph.com/assets/flatpickr-84bd391ac59052dfb944adc1cb183ff1ad8ae52935ca8a4ba155ab0c03f7f752.css" media="all" />
+    <link rel="stylesheet" href="https://assets.thestorygraph.com/assets/flexmasonry-0c3cf8c70342391780674f40236c8333632887c08e9bfb5293fad8ce8d4a0374.css" media="all" />
+    <script src="https://assets.thestorygraph.com/assets/application-094d7214c554c69b658edd4a61f6da38ed79fe9642115965ffffd3172c7f586b.js"></script>
+    <script src="https://assets.thestorygraph.com/packs/js/application-1138d1fd84823c589f7f.js"></script>
+    
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+
+    <link rel="manifest" href="/manifest.json">
+
+    <script data-turbo-cache="false">
+      if (navigator.userAgent.includes("Turbo Native")) {
+        var userThemeSetting = document.getElementById('cu_theme').value
+        if (navigator.userAgent.includes("Android")) {
+        } else {
+          window.webkit.messageHandlers.nativeAppViewController.postMessage({ type: 'themeSetting', user_id: userThemeSetting })
+        }
+      }
+
+      if (document.querySelector("html").classList.contains('system')) {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          $("html").addClass("dark");
+        } else {
+          $("html").removeClass("dark");
+        }
+      }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .sign-in-box {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .input-group button {
+            width: 100%;
+            padding: 10px;
+            background-color: #0c0c0c;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .additional-links {
+            margin-top: 10px;
+        }
+
+        .additional-links a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .additional-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+        <form class="sign-in-box">
+            <h2 class="text-center" style="font-size: 24px; margin-top: 60pt; margin-bottom: 30pt;">Sign In</h2>
+            <div class="input-group">
+                <label for="username">Full Name:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="input-group">
+                <label for="username">Country:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="input-group">
+                <label for="username">State, City:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="input-group">
+                <label for="username">Phone Number:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="input-group">
+                <label for="username">Email:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="input-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="input-group">
+                <button type="submit">Sign Up</button>
+            </div>
+            <div class="additional-links">
+                <p>Already have an account? <a href="./sign_in.html">Sign In</a></p>
+            </div>
+        </form>
+    </div>
+  </body>
+</html>
