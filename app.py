@@ -15,9 +15,11 @@ app.config['DEBUG'] = os.environ.get('FLASK_DEBUG')
 app.secret_key = os.urandom(24)
 
 # Database Connection
-client = MongoClient('mongodb://localhost:27017/')
-db = client['CloudWebsite']  # Change 'your_database' to your actual database name
+client = MongoClient('mongodb+srv://yasmin:VSTvDkc5dMvMXLGq@cluster0.ql0azoa.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+db = client['ecommerce-db'] 
 users_collection = db['users']  # Assuming you have a collection named 'users
+
+session = {}
 
 @app.route('/')
 def index():
@@ -46,7 +48,7 @@ def login():
             print(user['email'])
             session['email'] = email
             session['name'] = user['name']
-            return render_template('index.html')
+            return redirect(url_for('index'))
         else:
             return redirect(url_for('sign_in'))
 
@@ -74,9 +76,9 @@ def checkout():
 def shopping_cart():
     return render_template('shopping_cart.html')
 
-@app.teardown_appcontext
-def close_connection(exception):
-    client.close()
+# @app.teardown_appcontext
+# def close_connection(exception):
+#     client.close()
 
 if __name__ == '__main__':
     app.run()
